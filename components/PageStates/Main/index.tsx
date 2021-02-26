@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { Button } from "../../Common/Button";
 import { LoaderIcon } from "../../Common/LoaderIcon";
 import { SongRow } from "../../Common/SongRow";
-import { FillOutForm, Hyperbole } from "../../FillOutForm";
+import { FillOutForm } from "../../FillOutForm";
 
 import styles from "./MainPage.module.scss";
 import { ExpandedItem, TargetItem } from "./types";
@@ -15,7 +15,7 @@ import {
   getTrackDetails,
   createAndFillPlaylist,
 } from "./spotifyActions";
-import { PlaylistImageTester } from "../../Common/PlaylistImageTester";
+// import { PlaylistImageTester } from "../../Common/PlaylistImageTester";
 import {
   extremeStat,
   getTitle,

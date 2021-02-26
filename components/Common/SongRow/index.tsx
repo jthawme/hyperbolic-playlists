@@ -3,10 +3,9 @@ import classNames from "classnames";
 
 import { ExpandedItem } from "../../PageStates/Main/types";
 import styles from "./SongRow.module.scss";
-import { Hyperbole } from "../../FillOutForm";
 import { PreviewPlayer } from "../PreviewPlayer";
 import { Icon } from "../Icon";
-import { getStat } from "../../../utils/hyperbole";
+import { getStat, Hyperbole } from "../../../utils/hyperbole";
 import { ImageLoad } from "../ImageLoad";
 
 interface SongRowProps extends ExpandedItem {

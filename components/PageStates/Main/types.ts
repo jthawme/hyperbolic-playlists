@@ -1,4 +1,4 @@
-import { Hyperbole } from "../../FillOutForm";
+import { Hyperbole } from "../../../utils/hyperbole";
 
 export type TargetItem = {
   term: Hyperbole;

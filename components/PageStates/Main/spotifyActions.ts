@@ -1,7 +1,6 @@
 import SpotifyWebApi from "spotify-web-api-js";
-import { filterTrackStat } from "../../../utils/hyperbole";
+import { filterTrackStat, Hyperbole } from "../../../utils/hyperbole";
 import { chunk } from "../../../utils/utils";
-import { Hyperbole } from "../../FillOutForm";
 import { ExpandedItem } from "./types";
 
 export const getPlaylistItems = (
