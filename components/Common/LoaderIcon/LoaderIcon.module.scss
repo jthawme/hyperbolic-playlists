@@ -1,0 +1,16 @@
+.svg {
+  color: var(--color-text);
+
+  animation: {
+    name: SPIN;
+    duration: 2s;
+    iteration-count: infinite;
+    timing-function: linear;
+  }
+}
+
+@keyframes SPIN {
+  to {
+    transform: rotate(360deg);
+  }
+}

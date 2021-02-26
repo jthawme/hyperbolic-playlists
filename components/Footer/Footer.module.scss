@@ -1,0 +1,28 @@
+.footer {
+  position: fixed;
+
+  bottom: 0;
+  right: 0;
+
+  padding: var(--size-unit-2);
+
+  font-size: var(--font-size-small);
+
+  display: flex;
+  justify-content: flex-end;
+
+  background-color: var(--color-bg);
+}
+
+.attr {
+  display: inline-flex;
+  flex-direction: column;
+  font-size: 11px;
+
+  text-decoration: none;
+  color: var(--color-text);
+
+  span {
+    margin-bottom: 1px;
+  }
+}

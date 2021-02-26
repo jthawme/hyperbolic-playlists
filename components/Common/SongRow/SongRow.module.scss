@@ -1,0 +1,33 @@
+.row {
+  display: grid;
+
+  grid-template-columns: 160px 1fr;
+  gap: var(--size-unit-4);
+}
+
+.image {
+  // grid-column: 1 / span 3;
+  line-height: 0;
+
+  position: relative;
+}
+
+.info {
+  // grid-column: 4 / span 9;
+}
+
+.title {
+  font-size: var(--font-size-xxx-large);
+  line-height: 1.1;
+
+  margin-bottom: var(--size-unit-2);
+}
+
+.icon {
+  --icon-size: 16px;
+
+  position: relative;
+
+  top: -0.15em;
+  color: var(--color-green);
+}

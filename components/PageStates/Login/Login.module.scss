@@ -1,0 +1,45 @@
+.box {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate3d(-50%, -50%, 0);
+
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: var(--size-unit-6);
+}
+
+.btn {
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+
+  padding: 0;
+  margin: var(--size-unit-2) 0 0;
+
+  cursor: pointer;
+  font-size: var(--font-size-small);
+
+  &:hover,
+  &:focus {
+    opacity: 0.5;
+  }
+}
+
+.page {
+  opacity: 0;
+
+  transition: {
+    duration: 1s;
+    property: opacity;
+  }
+
+  &.display {
+    opacity: 1;
+  }
+}

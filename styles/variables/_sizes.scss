@@ -1,0 +1,15 @@
+:root {
+  --page-max-width: 1280px;
+
+  @for $i from 1 through 20 {
+    --size-unit-#{$i}: #{$i * 5px};
+  }
+
+  --global-margin: var(--size-unit-5);
+  --global-double-margin: var(--size-unit-9);
+
+  @include tablet {
+    --global-margin: var(--size-unit-10);
+    --global-double-margin: var(--size-unit-18);
+  }
+}

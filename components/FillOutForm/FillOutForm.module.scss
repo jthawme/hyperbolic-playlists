@@ -1,0 +1,19 @@
+.box {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  max-width: 400px;
+  width: 90%;
+
+  padding: var(--size-unit-4) var(--size-unit-6);
+
+  border: 2px solid var(--color-black);
+
+  transform: translate3d(-50%, -50%, 0);
+
+  p {
+    line-height: 1.5;
+  }
+}
