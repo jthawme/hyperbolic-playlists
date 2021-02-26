@@ -41,7 +41,7 @@ export const getPlaylistItems = (
 
           if (
             res.offset + limit + res.offset > res.total ||
-            items.length > MAX
+            items.length + limit > MAX
           ) {
             resolve(items);
           } else {
@@ -69,14 +69,14 @@ export const getTrackDetails = async (
       .getAudioFeaturesForTracks(tracks.map((t) => t.id))
       .then((items) => items.audio_features);
 
-    onProgress(i * 100, items.length);
-
     details.push(
       ...tracks.map((t, i) => ({
         ...t,
         features: features[i],
       }))
     );
+
+    onProgress(details.length, items.length);
   }
 
   return details;

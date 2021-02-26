@@ -42,6 +42,11 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
   const [saving, setSaving] = useState<boolean>(false);
   const [items, setItems] = useState<ExpandedItem[]>([]);
 
+  const [loadingInfo, setLoadingInfo] = useState({
+    label: "",
+    percentage: 0,
+  });
+
   const headerTitle = useMemo(() => {
     if (!target) {
       return "";
@@ -59,13 +64,23 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
 
       setLoading(true);
       setItems([]);
-      getPlaylistItems(spotify, target.playlist, (current, total, clipped) =>
-        console.log(`${current}/${total}`, clipped)
-      )
+      getPlaylistItems(spotify, target.playlist, (current, total, clipped) => {
+        const act = clipped ? 1500 : total;
+
+        setLoadingInfo({
+          percentage: current / act / 2,
+          label: `Fetching ${current}/${act} tracks${
+            clipped ? " (maximum 1500)" : ""
+          }`,
+        });
+      })
         .then((items) =>
-          getTrackDetails(spotify, items, (current, total) =>
-            console.log(`${current}/${total}`)
-          )
+          getTrackDetails(spotify, items, (current, total) => {
+            setLoadingInfo({
+              percentage: current / total / 2 + 0.5,
+              label: `Analysing ${current}/${total} tracks`,
+            });
+          })
         )
         .then((full) => filterTracks(full, target.term))
         .then((items) => {
@@ -125,6 +140,19 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
           <div className={styles.loading}>
             <LoaderIcon />
           </div>
+
+          <div className={styles.loadingBar}>
+            <div
+              className={styles.loadingBarTrack}
+              style={
+                {
+                  "--percentage": loadingInfo.percentage,
+                } as React.CSSProperties
+              }
+            />
+          </div>
+
+          <div className={styles.loadingMessage}>{loadingInfo.label}</div>
         </div>
       )}
       {target && items.length > 0 && (

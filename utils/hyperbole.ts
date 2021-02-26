@@ -74,18 +74,21 @@ export const getTitle = (hyperbole) => {
     [Hyperbole.Danciest]: [
       "Get on your dancing shoes",
       "I didnt come to stare at the dancefloor",
+      "Saturday night/All week fever",
     ],
     [Hyperbole.Happiest]: [
       "Smiling from ear to ear",
-      "Cheesing at these songs",
+      "If you are happy and you know it, clap your cheeks",
     ],
     [Hyperbole.Saddest]: [
       "It was never a phase mum",
       "I'm not okay, and thats okay",
+      "The world is a beautiful place and I'm no longer afraid to cry",
     ],
     [Hyperbole.Most_Energetic]: [
       "I am going to explode",
       "Time to get unleashed",
+      "badadadad bee ba ba badabop",
     ],
     [Hyperbole.Loudest]: [
       "Pump it. Louder.",
@@ -94,6 +97,7 @@ export const getTitle = (hyperbole) => {
     [Hyperbole.Most_Upbeat]: [
       "Too many cokey colas",
       "I feel like I can run around the world",
+      "Good stuff good stuff. Got anymore?",
     ],
   };
 
@@ -112,7 +116,7 @@ export const extremeStat = (hyperbole: Hyperbole, items: ExpandedItem[]) => {
     case Hyperbole.Saddest:
       return Math.min(...items.map((t) => t.features?.valence));
     case Hyperbole.Loudest:
-      return Math.min(...items.map((t) => t.features?.loudness));
+      return Math.max(...items.map((t) => t.features?.loudness));
     case Hyperbole.Most_Upbeat:
       return Math.min(...items.map((t) => t.features?.tempo));
     default:

@@ -7,14 +7,48 @@
 }
 
 .loading {
-  position: absolute;
-
-  top: var(--size-unit-2);
-  left: var(--size-unit-2);
-
   &Wrapper {
-    position: relative;
+    position: absolute;
+
+    top: 50vh;
+    left: 50%;
+
+    transform: translate3d(-50%, -50%, 0);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
+}
+
+.loadingBar {
+  position: relative;
+
+  width: 200px;
+  height: 4px;
+  background-color: rgba(0, 0, 0, 0.15);
+  margin-top: var(--size-unit-2);
+
+  &Track {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    transform: scaleX(var(--percentage, 0));
+    transform-origin: top left;
+
+    background-color: var(--color-black);
+  }
+}
+
+.loadingMessage {
+  text-align: center;
+
+  padding-top: var(--size-unit-2);
 }
 
 .list {
