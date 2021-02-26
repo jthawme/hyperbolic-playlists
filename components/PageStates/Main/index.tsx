@@ -42,10 +42,9 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
   const [saving, setSaving] = useState<boolean>(false);
   const [items, setItems] = useState<ExpandedItem[]>([]);
 
-  const [loadingInfo, setLoadingInfo] = useState({
-    label: "",
-    percentage: 0,
-  });
+  const [loadingInfo, setLoadingInfo] = useState<
+    { label: string; percentage: number } | false
+  >(false);
 
   const headerTitle = useMemo(() => {
     if (!target) {
@@ -122,6 +121,7 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
       return;
     }
 
+    setLoadingInfo(false);
     setLoading(true);
     setSaving(true);
 
@@ -141,18 +141,22 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
             <LoaderIcon />
           </div>
 
-          <div className={styles.loadingBar}>
-            <div
-              className={styles.loadingBarTrack}
-              style={
-                {
-                  "--percentage": loadingInfo.percentage,
-                } as React.CSSProperties
-              }
-            />
-          </div>
+          {loadingInfo && (
+            <>
+              <div className={styles.loadingBar}>
+                <div
+                  className={styles.loadingBarTrack}
+                  style={
+                    {
+                      "--percentage": loadingInfo.percentage,
+                    } as React.CSSProperties
+                  }
+                />
+              </div>
 
-          <div className={styles.loadingMessage}>{loadingInfo.label}</div>
+              <div className={styles.loadingMessage}>{loadingInfo.label}</div>
+            </>
+          )}
         </div>
       )}
       {target && items.length > 0 && (
