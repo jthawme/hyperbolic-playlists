@@ -59,8 +59,14 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
 
       setLoading(true);
       setItems([]);
-      getPlaylistItems(spotify, target.playlist)
-        .then((items) => getTrackDetails(spotify, items))
+      getPlaylistItems(spotify, target.playlist, (current, total, clipped) =>
+        console.log(`${current}/${total}`, clipped)
+      )
+        .then((items) =>
+          getTrackDetails(spotify, items, (current, total) =>
+            console.log(`${current}/${total}`)
+          )
+        )
         .then((full) => filterTracks(full, target.term))
         .then((items) => {
           setItems(items);

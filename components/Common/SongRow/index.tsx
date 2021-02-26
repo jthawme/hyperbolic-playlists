@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import classNames from "classnames";
+import { useInView } from "react-intersection-observer";
 
 import { ExpandedItem } from "../../PageStates/Main/types";
 import styles from "./SongRow.module.scss";
@@ -24,18 +25,24 @@ const SongRow: React.FC<SongRowProps> = ({
   term,
   most,
 }) => {
+  const { ref, inView } = useInView({
+    rootMargin: "100px",
+  });
+
   const stat = useMemo(() => {
     return getStat(term, features);
   }, [term, features]);
 
   return (
-    <div className={classNames(styles.row, className)}>
+    <div ref={ref} className={classNames(styles.row, className)}>
       <div className={styles.image}>
-        <ImageLoad
-          className="album-artwork"
-          crossOrigin="anonymous"
-          src={album.images[0].url}
-        />
+        {inView && (
+          <ImageLoad
+            className="album-artwork"
+            crossOrigin="anonymous"
+            src={album.images[0].url}
+          />
+        )}
         {preview_url && <PreviewPlayer src={preview_url} />}
       </div>
       <div className={styles.info}>

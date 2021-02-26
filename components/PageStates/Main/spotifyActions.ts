@@ -5,64 +5,47 @@ import { ExpandedItem } from "./types";
 
 export const getPlaylistItems = (
   spotify: SpotifyWebApi.SpotifyWebApiJs,
-  playlist: "saved-tracks" | "top-tracks" | string
+  playlist: "saved-tracks" | "top-tracks" | string,
+  onProgress: (current: number, total: number, clipped: boolean) => void
 ): Promise<
   SpotifyApi.SavedTrackObject[] | SpotifyApi.PlaylistTrackObject[]
 > => {
   return new Promise((resolve, reject) => {
+    const MAX = 1500;
     const items = [];
 
+    const limit = playlist === "saved-tracks" ? 50 : 100;
+
     const getItems = (offset = 0) => {
-      if (playlist === "top-tracks") {
-        spotify
-          .getMyTopTracks({
-            time_range: "long_term",
-            limit: 50,
+      const func = (): Promise<
+        SpotifyApi.UsersSavedTracksResponse | SpotifyApi.PlaylistTrackResponse
+      > => {
+        if (playlist === "saved-tracks") {
+          return spotify.getMySavedTracks({
+            limit,
             offset,
-          })
-          .then((res) => {
-            items.push(...res.items);
+          });
+        }
 
-            if (res.items.length < 50) {
-              resolve(items);
-            } else {
-              getItems(offset + 50);
-            }
-          })
-          .catch((e) => reject(e));
-        return;
-      }
+        return spotify.getPlaylistTracks(playlist, {
+          offset,
+          limit,
+        });
+      };
 
-      if (playlist === "saved-tracks") {
-        spotify
-          .getMySavedTracks({
-            limit: 50,
-            offset,
-          })
-          .then((res) => {
-            items.push(...res.items);
-
-            if (res.items.length < 50) {
-              resolve(items);
-            } else {
-              getItems(offset + 50);
-            }
-          })
-          .catch((e) => reject(e));
-        return;
-      }
-
-      spotify
-        .getPlaylist(playlist, {
-          limit: 100,
-        })
+      func()
         .then((res) => {
-          items.push(...res.tracks.items);
+          items.push(...res.items);
 
-          if (res.tracks.items.length < 100) {
+          onProgress(items.length, res.total, res.total > MAX);
+
+          if (
+            res.offset + limit + res.offset > res.total ||
+            items.length > MAX
+          ) {
             resolve(items);
           } else {
-            getItems(offset + 100);
+            getItems(offset + limit);
           }
         })
         .catch((e) => reject(e));
@@ -74,7 +57,8 @@ export const getPlaylistItems = (
 
 export const getTrackDetails = async (
   spotify: SpotifyWebApi.SpotifyWebApiJs,
-  items: SpotifyApi.SavedTrackObject[] | SpotifyApi.PlaylistTrackObject[]
+  items: SpotifyApi.SavedTrackObject[] | SpotifyApi.PlaylistTrackObject[],
+  onProgress: (current: number, total: number) => void
 ) => {
   const details = [];
 
@@ -84,6 +68,8 @@ export const getTrackDetails = async (
     const features = await spotify
       .getAudioFeaturesForTracks(tracks.map((t) => t.id))
       .then((items) => items.audio_features);
+
+    onProgress(i * 100, items.length);
 
     details.push(
       ...tracks.map((t, i) => ({
@@ -156,7 +142,7 @@ export const createCoverImage = (
 
   ctx.globalAlpha = 0.75;
   const images = [
-    ...document.querySelectorAll(".album-artwork"),
+    ...document.querySelectorAll(".album-artwork img"),
   ] as HTMLImageElement[];
 
   const cols = 2;

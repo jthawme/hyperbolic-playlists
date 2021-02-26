@@ -135,7 +135,8 @@ const AppContainer: React.FC = ({ children }) => {
 
       const p = await client.getUserPlaylists();
       const list = p.items.filter(
-        (i) => i.owner.id === userId && i.tracks.total > 0
+        // (i) => i.owner.id === userId && i.tracks.total > 0
+        (i) => i.tracks.total > 0
       );
 
       setPlaylists(list);

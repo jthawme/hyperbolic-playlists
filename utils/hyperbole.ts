@@ -53,11 +53,11 @@ export const filterTrackStat = (hyperbole: Hyperbole, item: ExpandedItem) => {
 
   switch (hyperbole) {
     case Hyperbole.Happiest:
-      return item.features.valence > 0.6;
+      return item.features.valence > 0.7;
     case Hyperbole.Danciest:
       return item.features.danceability > 0.7;
     case Hyperbole.Saddest:
-      return item.features.valence < 0.35;
+      return item.features.valence < 0.3;
     case Hyperbole.Most_Energetic:
       return item.features.energy > 0.6;
     case Hyperbole.Loudest:
