@@ -34,7 +34,14 @@ const SongRow: React.FC<SongRowProps> = ({
   }, [term, features]);
 
   return (
-    <div ref={ref} className={classNames(styles.row, className)}>
+    <div
+      ref={ref}
+      className={classNames(
+        styles.row,
+        { [styles.visible]: inView },
+        className
+      )}
+    >
       <div className={styles.image}>
         {inView && (
           <ImageLoad

@@ -134,7 +134,7 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
   }, [spotify, items, userId, target, headerTitle]);
 
   return (
-    <main className={classNames(styles.main, { [styles.saving]: saving })}>
+    <>
       {loading && (
         <div className={styles.loadingWrapper}>
           <div className={styles.loading}>
@@ -160,7 +160,7 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
         </div>
       )}
       {target && items.length > 0 && (
-        <>
+        <main className={classNames(styles.main, { [styles.saving]: saving })}>
           <header className={styles.header}>
             <h2>{headerTitle}</h2>
             <div className={styles.info}>
@@ -183,13 +183,19 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
             <div className={styles.menu}>
               <h4>Actions</h4>
               <Button
+                className={styles.menuBtn}
                 icon="refresh"
                 onClick={() => setTarget(undefined)}
                 disabled={saving}
               >
                 Create another
               </Button>
-              <Button icon="save" onClick={savePlaylist} disabled={saving}>
+              <Button
+                className={styles.menuBtn}
+                icon="save"
+                onClick={savePlaylist}
+                disabled={saving}
+              >
                 {" "}
                 Save this playlist
               </Button>
@@ -205,7 +211,7 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
               />
             ))}
           </div>
-        </>
+        </main>
       )}
       {!target && (
         <FillOutForm
@@ -215,7 +221,7 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
           onSubmit={(term, playlist) => setTarget({ term, playlist })}
         />
       )}
-    </main>
+    </>
   );
 };
 

@@ -1,5 +1,7 @@
 .title {
-  position: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
 
   z-index: 5;
 
@@ -13,9 +15,6 @@
 
   padding: var(--size-unit-4);
 
-  top: 0;
-  left: 0;
-
   // transform: translate3d(-1%, 0, 0);
 
   // mix-blend-mode: overlay;
@@ -25,5 +24,9 @@
 
   span {
     font-size: var(--font-size-x-large);
+  }
+
+  @include tablet {
+    position: fixed;
   }
 }

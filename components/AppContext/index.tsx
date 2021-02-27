@@ -21,6 +21,8 @@ interface AppContextProps {
   authoriseUrl: string;
   userId?: string;
   loading: boolean;
+  aboutOpen: boolean;
+  setAboutOpen: (aboutOpen: boolean) => void;
   getUserPlaylists: (
     client: Spotify.SpotifyWebApiJs
   ) => Promise<SpotifyApi.PlaylistObjectSimplified[]>;
@@ -31,6 +33,8 @@ const AppContext = createContext<AppContextProps>({
   authoriseUrl: "",
   loading: true,
   getUserPlaylists: () => Promise.resolve([]),
+  aboutOpen: false,
+  setAboutOpen: () => false,
 });
 
 const AppContainer: React.FC = ({ children }) => {
@@ -38,6 +42,7 @@ const AppContainer: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [spotify, setSpotify] = useState<AppContextProps["spotify"]>(undefined);
   const [profile, setProfile] = useState<AppContextProps["profile"]>(undefined);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const [authStateToken, setAuthStateToken] = useState<string>(uniqid());
   const [playlists, setPlaylists] = useState<
     SpotifyApi.PlaylistObjectSimplified[]
@@ -156,6 +161,8 @@ const AppContainer: React.FC = ({ children }) => {
         userId,
         authoriseUrl,
         getUserPlaylists,
+        aboutOpen,
+        setAboutOpen,
       }}
     >
       {children}

@@ -45,14 +45,18 @@ const FillOutForm: React.FC<FillOutFormProps> = ({
       <p>
         I want to generate the{" "}
         <HyperSelect
+          className={styles.select}
           value={hyperboleTerm}
           onValue={setHyperboleTerm}
           items={hyperboleOptions}
+          title="Playlist type"
         />{" "}
         playlist I can, using tracks from{" "}
         <HyperSelect
+          className={styles.select}
           onValue={setPlaylistChoice}
           value={playlistChoice}
+          title="Which playlist?"
           items={[
             { label: "my saved tracks", value: "saved-tracks" },
             // { label: "my top tracks", value: "top-tracks" },
@@ -65,7 +69,10 @@ const FillOutForm: React.FC<FillOutFormProps> = ({
       </p>
 
       <p>
-        <Button onClick={() => onSubmit(hyperboleTerm, playlistChoice)}>
+        <Button
+          disabled={!hyperboleTerm || !playlistChoice}
+          onClick={() => onSubmit(hyperboleTerm, playlistChoice)}
+        >
           Lets go
         </Button>
       </p>

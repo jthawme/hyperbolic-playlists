@@ -1,8 +1,13 @@
 .row {
   display: grid;
 
-  grid-template-columns: 160px 1fr;
+  grid-template-columns: 1fr 5fr;
   gap: var(--size-unit-4);
+  align-items: flex-start;
+
+  @include tablet {
+    grid-template-columns: 160px 1fr;
+  }
 }
 
 .image {
@@ -10,6 +15,16 @@
   line-height: 0;
 
   position: relative;
+
+  opacity: 0;
+  transition: {
+    duration: 0.25s;
+    property: opacity;
+  }
+
+  .visible & {
+    opacity: 1;
+  }
 }
 
 .info {
@@ -17,10 +32,14 @@
 }
 
 .title {
-  font-size: var(--font-size-xxx-large);
+  font-size: var(--font-size-large);
   line-height: 1.1;
 
   margin-bottom: var(--size-unit-2);
+
+  @include tablet {
+    font-size: var(--font-size-xxx-large);
+  }
 }
 
 .icon {

@@ -28,31 +28,72 @@
   height: 100%;
 
   button {
-    position: relative;
+    position: absolute;
+
+    top: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     z-index: 5;
 
     cursor: pointer;
 
     color: var(--color-black);
-    border: 1px solid currentColor;
-    background-color: transparent;
+    border: 0;
+    background-color: var(--color-bg-opacity);
 
     line-height: 1;
 
-    padding: 0;
+    padding: var(--size-unit-1);
     margin: 0;
-
-    width: 64px;
-    height: 64px;
-
-    border-radius: 100%;
+    -webkit-appearance: none;
 
     outline: 0;
 
-    --icon-size: 28px;
+    --icon-size: 18px;
+
+    width: 100%;
 
     &:hover {
       color: var(--color-green-active);
+    }
+  }
+
+  @include tablet {
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      position: relative;
+      z-index: 5;
+
+      cursor: pointer;
+
+      color: var(--color-black);
+      border: 1px solid currentColor;
+      background-color: transparent;
+
+      line-height: 1;
+      top: auto;
+
+      padding: 0;
+      margin: 0;
+
+      border-radius: 100%;
+
+      outline: 0;
+
+      --icon-size: 21px;
+
+      width: 64px;
+      height: 64px;
+
+      &:hover {
+        color: var(--color-green-active);
+      }
     }
   }
 }

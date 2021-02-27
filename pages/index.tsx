@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import Head from "next/head";
+import classNames from "classnames";
 import { useApp } from "../components/AppContext";
 
 import styles from "../styles/pages/Home.module.scss";
@@ -8,9 +9,17 @@ import { Footer } from "../components/Footer";
 import { Logo } from "../components/Common/Logo";
 import { LoadingPage } from "../components/PageStates/Loading";
 import { MainPage } from "../components/PageStates/Main";
+import { AboutOverlay } from "../components/AboutOverlay";
 
 export default function Home() {
-  const { loading, spotify, profile, userId } = useApp();
+  const {
+    loading,
+    spotify,
+    profile,
+    userId,
+    setAboutOpen,
+    aboutOpen,
+  } = useApp();
 
   return (
     <div className={styles.container}>
@@ -26,11 +35,22 @@ export default function Home() {
 
       <Logo />
 
+      <button
+        className={classNames(styles.aboutLink, {
+          [styles.show]: !loading && profile,
+        })}
+        onClick={() => setAboutOpen(!aboutOpen)}
+      >
+        About
+      </button>
+
       {loading && <LoadingPage />}
       {!loading && !spotify && <LoginPage />}
       {!loading && profile && (
         <MainPage spotify={spotify} profile={profile} userId={userId} />
       )}
+
+      <AboutOverlay />
 
       <Footer />
     </div>

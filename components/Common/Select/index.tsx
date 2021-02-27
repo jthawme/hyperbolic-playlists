@@ -20,6 +20,7 @@ interface HyperSelectProps {
   value?: any;
   onValue: (value: any) => void;
   items: Option[];
+  title?: string;
 }
 
 const HyperSelect: React.FC<HyperSelectProps> = ({
@@ -27,6 +28,7 @@ const HyperSelect: React.FC<HyperSelectProps> = ({
   className,
   onValue,
   value,
+  title,
 }) => {
   const [open, setOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -60,6 +62,7 @@ const HyperSelect: React.FC<HyperSelectProps> = ({
       </span>
       {open && (
         <span className={styles.dropdown}>
+          {title && <span className={styles.title}>{title}</span>}
           {items.map(({ value, label }) => (
             <span
               key={value}

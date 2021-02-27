@@ -1,0 +1,140 @@
+.about {
+  position: fixed;
+
+  background-color: var(--color-black);
+  color: var(--color-white);
+
+  width: calc(100vw - 72px);
+  height: calc(100vh - var(--size-unit-20));
+
+  bottom: 0;
+  left: 0;
+
+  padding: var(--size-unit-4) var(--size-unit-4) var(--size-unit-4);
+
+  display: flex;
+  flex-direction: column;
+
+  transform: translate3d(-10%, 0, 0);
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform;
+
+  transition: {
+    duration: 0.5s;
+    property: transform, opacity, visibility;
+  }
+
+  &.open {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .close {
+    position: absolute;
+
+    z-index: 5;
+
+    top: 0;
+    right: 0;
+
+    -webkit-appearance: none;
+
+    border: 0;
+    background-color: transparent;
+
+    padding: var(--size-unit-4) var(--size-unit-4) var(--size-unit-2)
+      var(--size-unit-2);
+    margin: 0;
+
+    color: var(--color-white);
+
+    cursor: pointer;
+
+    outline: 0;
+
+    &:hover,
+    &:focus {
+      opacity: 0.5;
+    }
+  }
+
+  .content {
+    position: relative;
+
+    flex-grow: 1;
+    overflow: auto;
+
+    padding-bottom: 40px;
+  }
+
+  p {
+    max-width: 90%;
+  }
+
+  a {
+    color: var(--color-bg);
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      opacity: 0.5;
+    }
+  }
+
+  .large {
+    font-size: var(--font-size-medium);
+  }
+
+  footer {
+    position: relative;
+
+    font-size: var(--font-size-small);
+
+    padding-top: var(--size-unit-4);
+    margin-top: 2px;
+
+    &:after {
+      content: "";
+
+      position: absolute;
+
+      bottom: 100%;
+      left: 0;
+
+      width: 100%;
+      height: 40px;
+
+      background: linear-gradient(to bottom, transparent, var(--color-black));
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+
+      bottom: calc(100% - 2px);
+
+      width: 100px;
+      height: 2px;
+
+      background-color: var(--color-white);
+    }
+  }
+
+  @include tablet {
+    width: 60vw;
+    padding: var(--size-unit-4) var(--size-unit-4) var(--size-unit-10);
+
+    .content {
+      overflow: visible;
+    }
+    .large {
+      font-size: var(--font-size-large);
+    }
+
+    p {
+      max-width: 70%;
+    }
+  }
+}

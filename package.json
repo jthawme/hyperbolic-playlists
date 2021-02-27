@@ -11,6 +11,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "next": "10.0.7",
+    "next-pwa": "^5.0.5",
     "normalize.css": "^8.0.1",
     "query-string": "^6.14.0",
     "rc-select": "^12.1.3",

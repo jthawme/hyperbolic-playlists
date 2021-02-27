@@ -9,7 +9,7 @@ import { FollowCanvas } from "../../FollowCanvas";
 import styles from "./Login.module.scss";
 
 const LoginPage: React.FC = () => {
-  const { authoriseUrl } = useApp();
+  const { authoriseUrl, setAboutOpen } = useApp();
   const [display, setDisplay] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,9 @@ const LoginPage: React.FC = () => {
       <div className={styles.box}>
         <Button to={authoriseUrl}>Login with spotify</Button>
 
-        <button className={styles.btn}>What is this?</button>
+        <button onClick={() => setAboutOpen(true)} className={styles.btn}>
+          What is this?
+        </button>
       </div>
     </section>
   );
