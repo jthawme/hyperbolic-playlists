@@ -21,6 +21,7 @@ import {
   getTitle,
   isTheExtremeStat,
 } from "../../../utils/hyperbole";
+import { fireEvent } from "../../../utils/analytics";
 
 export interface SpotifyProps {
   spotify: SpotifyWebApi.SpotifyWebApiJs;
@@ -56,6 +57,8 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
 
   useEffect(() => {
     if (target) {
+      fireEvent("target", target);
+
       if (memoized[`${target.playlist}-${target.term}`]) {
         setItems(memoized[`${target.playlist}-${target.term}`]);
         return;
@@ -120,6 +123,8 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
     if (!target || items.length === 0) {
       return;
     }
+
+    fireEvent("save");
 
     setLoadingInfo(false);
     setLoading(true);

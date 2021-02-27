@@ -45,6 +45,19 @@ export default function Home() {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Staatliches&display=swap"
           rel="stylesheet"
         />
+        <script
+          async
+          defer
+          data-domain="playslists.jthaw.club"
+          src="https://plausible.io/js/plausible.js"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.plausible = window.plausible || function(){" "}
+          {((window as any).plausible.q =
+            (window as any).plausible.q || []).push(arguments)}`,
+          }}
+        />
       </Head>
 
       <Logo />

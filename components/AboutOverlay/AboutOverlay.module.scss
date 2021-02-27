@@ -4,7 +4,7 @@
   background-color: var(--color-black);
   color: var(--color-white);
 
-  width: calc(100vw - 72px);
+  width: 100vw;
   height: calc(100vh - var(--size-unit-20));
 
   bottom: 0;
@@ -124,6 +124,10 @@
 
       background-color: var(--color-white);
     }
+  }
+
+  @include large-mobile {
+    width: calc(100vw - 72px);
   }
 
   @include tablet {
