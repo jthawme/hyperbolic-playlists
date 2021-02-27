@@ -20,6 +20,8 @@
   visibility: hidden;
   will-change: transform;
 
+  z-index: 50;
+
   :global(.transition) & {
     transition: {
       duration: 0.5s;
