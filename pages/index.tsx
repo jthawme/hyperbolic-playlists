@@ -53,9 +53,9 @@ export default function Home() {
         ></script>
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.plausible = window.plausible || function(){" "}
-          {((window as any).plausible.q =
-            (window as any).plausible.q || []).push(arguments)}`,
+            __html: `window.plausible = window.plausible || function() {
+              (window.plausible.q = window.plausible.q || []).push(arguments)
+            }`,
           }}
         />
       </Head>
