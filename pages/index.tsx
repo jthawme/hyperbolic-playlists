@@ -21,8 +21,22 @@ export default function Home() {
     aboutOpen,
   } = useApp();
 
+  const [transition, setTransition] = useState(false);
+
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setTransition(true);
+      });
+    });
+  }, []);
+
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames(styles.container, {
+        transition,
+      })}
+    >
       <Head>
         <title>Hyperbolic Playlists</title>
         <link rel="icon" href="/favicon.ico" />

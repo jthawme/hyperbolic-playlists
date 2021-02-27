@@ -20,9 +20,11 @@
   visibility: hidden;
   will-change: transform;
 
-  transition: {
-    duration: 0.5s;
-    property: transform, opacity, visibility;
+  :global(.transition) & {
+    transition: {
+      duration: 0.5s;
+      property: transform, opacity, visibility;
+    }
   }
 
   &.open {
