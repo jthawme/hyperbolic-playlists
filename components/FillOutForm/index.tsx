@@ -7,6 +7,8 @@ import { SpotifyProps } from "../PageStates/Main";
 import { Button } from "../Common/Button";
 import { Hyperbole, hyperboleOptions } from "../../utils/hyperbole";
 import { useApp } from "../AppContext";
+import { motion } from "framer-motion";
+import { switchVariants } from "../PageStates/Main/animation";
 
 interface FillOutFormProps extends Omit<SpotifyProps, "profile"> {
   name?: string;
@@ -35,7 +37,13 @@ const FillOutForm: React.FC<FillOutFormProps> = ({
   }, []);
 
   return (
-    <div className={styles.box}>
+    <motion.div
+      variants={switchVariants}
+      animate="in"
+      exit="out"
+      initial="initial"
+      className={styles.box}
+    >
       <p>
         Hey {name || "exaggeration enthusiast"}!<br />
         Let's generate an overly dramatic playlist for you. Fill out the
@@ -76,7 +84,7 @@ const FillOutForm: React.FC<FillOutFormProps> = ({
           Lets go
         </Button>
       </p>
-    </div>
+    </motion.div>
   );
 };
 

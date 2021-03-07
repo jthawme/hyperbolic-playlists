@@ -5,6 +5,11 @@
 
   padding: var(--size-unit-20) var(--size-unit-4) var(--size-unit-20);
 
+  h4 {
+    margin: 0 0 var(--size-unit-2);
+    font-weight: var(--font-weight-normal);
+  }
+
   @include tablet {
     padding: var(--size-unit-10) 160px 0;
   }
@@ -101,6 +106,18 @@
   }
 }
 
+.emptyWrapper {
+  display: flex;
+
+  justify-content: center;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .menuWrapper {
   position: fixed;
   align-self: flex-start;
@@ -122,11 +139,6 @@
 
     flex-direction: column;
     align-items: flex-start;
-
-    h4 {
-      margin: 0 0 var(--size-unit-2);
-      font-weight: var(--font-weight-normal);
-    }
 
     > * {
       margin-bottom: var(--size-unit-2);

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import classNames from "classnames";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { Button } from "../../Common/Button";
 import { LoaderIcon } from "../../Common/LoaderIcon";
@@ -22,6 +23,7 @@ import {
   isTheExtremeStat,
 } from "../../../utils/hyperbole";
 import { fireEvent } from "../../../utils/analytics";
+import { switchVariants } from "./animation";
 
 export interface SpotifyProps {
   spotify: SpotifyWebApi.SpotifyWebApiJs;
@@ -164,68 +166,113 @@ const MainPage: React.FC<SpotifyProps> = ({ profile, spotify, userId }) => {
           )}
         </div>
       )}
-      {target && items.length > 0 && (
-        <main className={classNames(styles.main, { [styles.saving]: saving })}>
-          <header className={styles.header}>
-            <h2>{headerTitle}</h2>
-            <div className={styles.info}>
-              <div className={styles.left}>
-                <p>
-                  According to Spotify, these are the songs for what you are
-                  after.
-                </p>
+      <AnimatePresence>
+        {target && items.length === 0 && !loading && (
+          <motion.main
+            variants={switchVariants}
+            key="emptyplaylist"
+            animate="in"
+            exit="out"
+            initial="initial"
+            className={classNames(styles.main, { [styles.saving]: saving })}
+          >
+            <header className={styles.header}>
+              <h2>Hmm, an empty feeling</h2>
+              <div className={styles.info}>
+                <div className={styles.left}>
+                  <p>
+                    Either this playlist is empty, or there is actually no
+                    tracks in it that match the criteria. Congrats?
+                  </p>
+                </div>
               </div>
+            </header>
 
-              <div className={styles.right}>
-                <p>
-                  {items.length} tracks / {duration} minutes
-                </p>
+            <div className={styles.emptyWrapper}>
+              <div className={styles.empty}>
+                <h4>Try changing the playlist or the filter</h4>
+                <Button
+                  className={styles.menuBtn}
+                  icon="refresh"
+                  onClick={() => setTarget(undefined)}
+                  disabled={saving}
+                >
+                  Create another
+                </Button>
               </div>
             </div>
-          </header>
+          </motion.main>
+        )}
+        {target && items.length > 0 && (
+          <motion.main
+            variants={switchVariants}
+            animate="in"
+            exit="out"
+            initial="initial"
+            key="fullplaylist"
+            className={classNames(styles.main, { [styles.saving]: saving })}
+          >
+            <header className={styles.header}>
+              <h2>{headerTitle}</h2>
+              <div className={styles.info}>
+                <div className={styles.left}>
+                  <p>
+                    According to Spotify, these are the songs for what you are
+                    after.
+                  </p>
+                </div>
 
-          <div className={styles.menuWrapper}>
-            <div className={styles.menu}>
-              <h4>Actions</h4>
-              <Button
-                className={styles.menuBtn}
-                icon="refresh"
-                onClick={() => setTarget(undefined)}
-                disabled={saving}
-              >
-                Create another
-              </Button>
-              <Button
-                className={styles.menuBtn}
-                icon="save"
-                onClick={savePlaylist}
-                disabled={saving}
-              >
-                {" "}
-                Save this playlist
-              </Button>
+                <div className={styles.right}>
+                  <p>
+                    {items.length} tracks / {duration} minutes
+                  </p>
+                </div>
+              </div>
+            </header>
+
+            <div className={styles.menuWrapper}>
+              <div className={styles.menu}>
+                <h4>Actions</h4>
+                <Button
+                  className={styles.menuBtn}
+                  icon="refresh"
+                  onClick={() => setTarget(undefined)}
+                  disabled={saving}
+                >
+                  Create another
+                </Button>
+                <Button
+                  className={styles.menuBtn}
+                  icon="save"
+                  onClick={savePlaylist}
+                  disabled={saving}
+                >
+                  {" "}
+                  Save this playlist
+                </Button>
+              </div>
             </div>
-          </div>
-          <div className={styles.list}>
-            {items.map((item) => (
-              <SongRow
-                key={item.id}
-                term={target.term}
-                most={isMost(item)}
-                {...item}
-              />
-            ))}
-          </div>
-        </main>
-      )}
-      {!target && (
-        <FillOutForm
-          name={profile.display_name}
-          spotify={spotify}
-          userId={userId}
-          onSubmit={(term, playlist) => setTarget({ term, playlist })}
-        />
-      )}
+            <div className={styles.list}>
+              {items.map((item) => (
+                <SongRow
+                  key={item.id}
+                  term={target.term}
+                  most={isMost(item)}
+                  {...item}
+                />
+              ))}
+            </div>
+          </motion.main>
+        )}
+        {!target && (
+          <FillOutForm
+            name={profile.display_name}
+            spotify={spotify}
+            userId={userId}
+            onSubmit={(term, playlist) => setTarget({ term, playlist })}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

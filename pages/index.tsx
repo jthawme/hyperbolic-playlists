@@ -39,12 +39,57 @@ export default function Home() {
     >
       <Head>
         <title>Hyperbolic Playlists</title>
+        <meta
+          name="description"
+          content="A site to help generate the most extreme versions of spotify playlists"
+        />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Staatliches&display=swap"
           rel="stylesheet"
         />
+        <meta property="og:title" content="Hyperbolic Playlists" />
+        <meta
+          property="og:description"
+          content="A site to help generate the most extreme versions of spotify playlists"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://playlists.jthaw.club" />
+        <meta
+          property="og:image"
+          content="https://playlists.jthaw.club/social.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:creator" content="@jthawme" />
+        <meta name="twitter:title" />
+        <meta property="twitter:url" content="https://playlists.jthaw.club" />
+        <meta
+          name="twitter:description"
+          content="A site to help generate the most extreme versions of spotify playlists"
+        />
+        <meta
+          name="twitter:image"
+          content="https://playlists.jthaw.club/social.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+
         <script
           async
           defer
